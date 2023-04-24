@@ -1,0 +1,15 @@
+import random
+import numpy as np
+from scipy.stats import kstest, chisquare
+
+# Tạo một chuỗi số ngẫu nhiên
+random_numbers = [random.randint(0, 9) for i in range(1000)]
+
+# Kiểm tra tính ngẫu nhiên của chuỗi số đầu ra bằng Kiểm tra Kolmogorov-Smirnov
+kstest_result = kstest(random_numbers, 'uniform')
+print("Kiểm tra Kolmogorov-Smirnov: p-value = ", kstest_result.pvalue)
+
+# Kiểm tra tính ngẫu nhiên của chuỗi số đầu ra bằng Kiểm tra chi bình phương
+observed, bins = np.histogram(random_numbers, bins=range(11))
+chisquare_result = chisquare(observed)
+print("Kiểm tra chi bình phương: p-value = ", chisquare_result.pvalue)
